@@ -6,19 +6,17 @@ import javax.persistence.Id;
 @Entity
 public class Store {
 	@Id
-	public Integer id;
 	private String name;
 	private String location;
-	private String address;
 	private String type;
 	
 	public Store() {}
 	
-	public Store(String name,String location,String address,String type)
+	public Store(String name,String location,String type)
 	{
 		this.name=name;
 		this.location=location;
-		this.address=address;
+		//this.address=address;
 		this.type=type;
 	}
 	
@@ -32,10 +30,7 @@ public class Store {
 		this.location=location;
 	}
 	
-	public void setAddress(String address)
-	{
-		this.address=address;
-	}
+	//public void setAddress(String address){this.address=address;}
 	
 	public void setType(String type)
 	{
@@ -51,10 +46,7 @@ public class Store {
 		return location;
 	}
 	
-	public String getAddress()
-	{
-		return address;
-	}
+//	public String getAddress(){return address;}
 	public String getType()
 	{
 		return type;

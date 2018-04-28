@@ -47,7 +47,7 @@
 				<br/>
 				<input type="submit" value="login"/>
 			</form>-->
-			<form name="valid" th:action="@{/customerHome}"    th:object="${name}" method="post">
+			<form name="valid" th:action="@{/loggedin}"    th:object="${name}" method="post">
 
 				E-mail: <input type="text" th:field="*{email}" name="email"/>
 				<br/>

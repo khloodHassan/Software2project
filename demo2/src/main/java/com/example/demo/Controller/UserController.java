@@ -28,12 +28,36 @@ public class UserController {
 		return "customerLoginPage";
 	}
 
-	@PostMapping("/customerHome")
+	@PostMapping("/loggedin")
 	public String login (@RequestParam Map<String, String> body,HttpServletRequest request) {
-
-		return "/addProduct";
-
-
+		//System.out.println("email="+body.);
+		System.out.println(body.get("email"));
+		User user = userRepository.findOne(body.get("email"));
+		if (user != null ) {
+			if (user.getUType().equals("customer")) {
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("customerHome");
+				mv.addObject("name", user);
+				return "customerHome";
+			} else if (user.getUType().equals("admin")) {
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("adminHome");
+				mv.addObject("name", user);
+				return "AdminHome";
+			}
+			else{
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("storeOwnerHome");
+				mv.addObject("name", user);
+				return "storeOwnerHome";
+			}
+		} else {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("customerHome");
+			mv.addObject("err", "Your username or password is incorrect");
+			return "customerHome";
+		}
+		//return "/addProduct";
 	}
 	/*
 

@@ -40,6 +40,7 @@ public class ProductController {
     	req.getSession().getAttribute("user");
     	if(productRepository.findOne(product.getName() )==null)
     	{
+    		product.setNumOfViews(0);
     		//Product pro=new Product(name,price,brand,cat,quantity);
     		productRepository.save(product);
     	}
@@ -58,6 +59,12 @@ public class ProductController {
 		for(Product product:productIteratable)
 		{
 			products.add(product);
+		}
+		for(Product product:products)
+		{
+			int views=product.getNumOfViews();
+			product.setNumOfViews(views++);
+			System.out.println(views);
 		}
 		model.addAttribute("products",products);
 		return "show-all-products";

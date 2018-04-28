@@ -5,5 +5,5 @@ import com.example.demo.Entity.Store;
 
 public abstract class Observer {
 	StoreController controller=new StoreController();
-	public abstract String update(Store store);
+	public abstract void update(Store store);
 }

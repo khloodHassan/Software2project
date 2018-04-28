@@ -17,6 +17,7 @@ public class Product {
     private String category;
     private String brand;
     private int quantity;
+    private int numOfViews;
 
    public Product(){}
 
@@ -25,6 +26,7 @@ public class Product {
         price=p;
         brand=b;
         category=c;
+        numOfViews=0;
     }
     public Product(String n,String p,String b,String c,int quantity) {
         name=n;
@@ -32,6 +34,7 @@ public class Product {
         brand=b;
         category=c;
         this.quantity=quantity;
+        numOfViews=0;
     }
 
     public int getQuantity() {
@@ -79,4 +82,12 @@ public class Product {
         this.category = category;
     }
 
+
+    public int getNumOfViews() {
+        return numOfViews;
+    }
+
+    public void setNumOfViews(int numOfViews) {
+        this.numOfViews = numOfViews;
+    }
 }

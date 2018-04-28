@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>products</title>
+</head>
+<body>
+<table border="1">
+<tr>
+    <th>store name</th>
+    <th>location</th>
+    <th>type</th>
+</tr>
+
+<tr th:each="store : ${stores}">
+    <td th:text="${store.name}"></td>
+    <td th:text="${store.location}"></td>
+    <td th:text="${store.type}"></td>
+</tr>
+</table><!--
+<form action="addProduct">
+    <input type="submit" value="add product"/>
+</form>
+<form action="/show-all-products">
+    <input type="submit" value="show all products"/>
+</form>-->
+</body>
+</html>

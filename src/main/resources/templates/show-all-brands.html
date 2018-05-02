@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>show all brands</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>brand name</th>
+        <th>category</th>
+    </tr>
+
+    <tr th:each="brand : ${brand}">
+        <td th:text="${brand.name}"></td>
+        <td th:text="${brand.category}"></td>
+    </tr>
+
+
+</table>
+</body>
+</html>

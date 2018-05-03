@@ -13,28 +13,46 @@ import com.example.demo.Repository.ProductRep;
 public class Product {
     @Id
     private String name;
-    private String price;
+    private Double price;
     private String category;
     private String brand;
     private int quantity;
     private int numOfViews;
+    private String store;
+    private boolean isFirstTime;
 
-   public Product(){}
+   public Product(){
+       isFirstTime=true;
+   }
 
-    public Product(String n,String p,String b,String c) {
+    public Product(String n,Double p,String b,String c) {
         name=n;
         price=p;
         brand=b;
         category=c;
         numOfViews=0;
+        isFirstTime=true;
     }
-    public Product(String n,String p,String b,String c,int quantity) {
+    public Product(String n,Double p,String b,String c,int quantity) {
         name=n;
         price=p;
         brand=b;
         category=c;
         this.quantity=quantity;
         numOfViews=0;
+        isFirstTime=true;
+    }
+
+
+    public Product(String n,Double p,String b,String c,int quantity,String store) {
+        name=n;
+        price=p;
+        brand=b;
+        category=c;
+        this.quantity=quantity;
+        numOfViews=0;
+        this.store=store;
+        isFirstTime=true;
     }
 
     public int getQuantity() {
@@ -57,7 +75,7 @@ public class Product {
         return name;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -74,7 +92,7 @@ public class Product {
         this.name = name;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -90,4 +108,21 @@ public class Product {
     public void setNumOfViews(int numOfViews) {
         this.numOfViews = numOfViews;
     }
+
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        isFirstTime = firstTime;
+    }
+
+    public boolean isFirstTime() {
+        return isFirstTime;
+    }
 }
+

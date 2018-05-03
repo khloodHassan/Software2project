@@ -33,7 +33,7 @@ public class UserController {
 		//System.out.println("email="+body.);
 		System.out.println(body.get("email"));
 		User user = userRepository.findOne(body.get("email"));
-		if (user != null ) {
+		if (user != null && user.getPassword().equals(body.get("password"))) {
 			if (user.getUType().equals("customer")) {
 				request.getSession().setAttribute("customer",user);
 				ModelAndView mv = new ModelAndView();
@@ -59,7 +59,7 @@ public class UserController {
 			}
 		} else {
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("customerHome");
+			mv.setViewName("login");
 			mv.addObject("err", "Your username or password is incorrect");
 			//return "login";
 			return mv;
@@ -137,6 +137,8 @@ public class UserController {
 		return null;
 
 	}
+
+
 
 
 }

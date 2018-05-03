@@ -15,7 +15,8 @@ public class User implements Serializable{
     private String password;
     private String confirm;
     private String type;
-    
+    private String storeOwnerEmail;
+
     private static final long serialVersionUID=1L;
     public User(){}
 
@@ -33,6 +34,15 @@ public class User implements Serializable{
         this.confirm = confirm;
         this.type = type;
     }
+    public User(String email, String userName, String password, String confirm, String type,String storeOwner) {
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.confirm = confirm;
+        this.type = type;
+        storeOwnerEmail=storeOwner;
+    }
+
 
     public String getEmail() {
         return email;
@@ -76,5 +86,13 @@ public class User implements Serializable{
 
     public String getType() {
         return type;
+    }
+
+    public String getStoreOwnerEmail() {
+        return storeOwnerEmail;
+    }
+
+    public void setStoreOwnerEmail(String storeOwnerEmail) {
+        this.storeOwnerEmail = storeOwnerEmail;
     }
 }

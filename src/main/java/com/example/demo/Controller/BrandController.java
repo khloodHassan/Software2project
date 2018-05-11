@@ -29,13 +29,24 @@ public class BrandController {
     @GetMapping("addBrandInDB")
     public String added(Model model, @ModelAttribute Brand brand, HttpServletRequest request)
     {
+        if(brand.getName()==""||brand.getCategory()=="")
+        {
+            model.addAttribute("err","please enter the information again");
+            add(model);
+            System.out.println("empty");
+            return "/addBrand";
+        }
         request.getSession().getAttribute("admin");
         if(brandRepository.findOne(brand.getName())==null)
         {
             brandRepository.save(brand);
+            System.out.println("saved");
         }
         else {
             System.out.println("already exists");
+            model.addAttribute("err","the brand already exists!!");
+            add(model);
+            return "addBrand";
         }
         return "addBrandInDB";
     }

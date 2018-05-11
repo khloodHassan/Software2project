@@ -24,6 +24,18 @@ public class collaboratorController {
     @GetMapping("addedCollaborator")
     public String add1(Model model, @ModelAttribute User user)
     {
+        if(user.getEmail()==""||user.getUserName()==""||user.getConfirm()==""||user.getPassword()==""||user.getStoreOwnerEmail()=="")
+        {
+            model.addAttribute("err","enter the information again");
+            add(model);
+            return "addCollaborator";
+        }
+        if(!user.getPassword().equals(user.getConfirm()))
+        {
+            model.addAttribute("err","enter the password and the confirmation again");
+            add(model);
+            return "addCollaborator";
+        }
         if(userReppository.findOne(user.getEmail())==null)
         {
             user.setType("collaborator");

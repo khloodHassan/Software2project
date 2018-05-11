@@ -16,15 +16,24 @@ public class User implements Serializable{
     private String confirm;
     private String type;
     private String storeOwnerEmail;
+    private boolean isFirstTime;
 
     private static final long serialVersionUID=1L;
-    public User(){}
+    public User(){
+        isFirstTime=true;
+    }
 
     public User(String name,String email,String pass)
     {
     	this.userName=name;
         this.email=email;
         this.password=pass;
+        isFirstTime=true;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public User(String email, String userName, String password, String confirm, String type) {
@@ -33,6 +42,7 @@ public class User implements Serializable{
         this.password = password;
         this.confirm = confirm;
         this.type = type;
+        isFirstTime=true;
     }
     public User(String email, String userName, String password, String confirm, String type,String storeOwner) {
         this.email = email;
@@ -41,6 +51,7 @@ public class User implements Serializable{
         this.confirm = confirm;
         this.type = type;
         storeOwnerEmail=storeOwner;
+        isFirstTime=true;
     }
 
 
@@ -94,5 +105,12 @@ public class User implements Serializable{
 
     public void setStoreOwnerEmail(String storeOwnerEmail) {
         this.storeOwnerEmail = storeOwnerEmail;
+    }
+    public void setFirstTime(boolean firstTime) {
+        isFirstTime = firstTime;
+    }
+
+    public boolean isFirstTime() {
+        return isFirstTime;
     }
 }

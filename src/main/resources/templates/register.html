@@ -40,17 +40,18 @@
     <div class="main">
 
         <div class="content">
-
+            <h2 th:text="${err}"></h2>
             <form name="valid" action="/registered"    th:object="${user}" method="post">
                 User Name: <input type="text" name="userName" th:field="*{userName}" /><br/>
                 E-mail: <input type="email" name="email" th:field="*{email}" /><br/>
                 Password: <input type="password" name="password" th:field="*{password}"/><br/>
                 Confirm password: <input type="password" name="confirmPassword" th:field="*{confirm}"/><br/>
-                User Type: <br/><input type="radio" name="type" value="customer" th:field="*{type}"/> Customer<br/>
-                <input type="radio" name="type" value="admin"/> Admin<br/>
-                <input type="radio" name="type" value="storeOwner"/> StoreOwner<br/>
+                User Type: <br/><input type="radio" name="type" value="customer" th:field="*{type}" id="type1"/> Customer<br/>
+                <input type="radio" name="type" value="admin" id="type2"/> Admin<br/>
+                <input type="radio" name="type" value="storeOwner" id="type3"/> StoreOwner<br/>
                 <input type="submit" value="register"/>
             </form>
+
 
         </div>
 

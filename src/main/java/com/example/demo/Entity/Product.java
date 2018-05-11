@@ -19,10 +19,10 @@ public class Product {
     private int quantity;
     private int numOfViews;
     private String store;
-    private boolean isFirstTime;
+    //private boolean isFirstTime;
 
    public Product(){
-       isFirstTime=true;
+       //isFirstTime=true;
    }
 
     public Product(String n,Double p,String b,String c) {
@@ -31,7 +31,7 @@ public class Product {
         brand=b;
         category=c;
         numOfViews=0;
-        isFirstTime=true;
+        //isFirstTime=true;
     }
     public Product(String n,Double p,String b,String c,int quantity) {
         name=n;
@@ -40,7 +40,7 @@ public class Product {
         category=c;
         this.quantity=quantity;
         numOfViews=0;
-        isFirstTime=true;
+        //isFirstTime=true;
     }
 
 
@@ -52,7 +52,7 @@ public class Product {
         this.quantity=quantity;
         numOfViews=0;
         this.store=store;
-        isFirstTime=true;
+        //isFirstTime=true;
     }
 
     public int getQuantity() {
@@ -116,13 +116,13 @@ public class Product {
     public void setStore(String store) {
         this.store = store;
     }
-
+/*
     public void setFirstTime(boolean firstTime) {
         isFirstTime = firstTime;
     }
 
     public boolean isFirstTime() {
         return isFirstTime;
-    }
+    }*/
 }
 

@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.Entity.Store;
+import com.example.demo.Entity.User;
 import com.example.demo.Repository.BrandRep;
 import com.example.demo.Repository.UserRep;
 import com.example.demo.Repository.storeRep;
@@ -47,20 +48,35 @@ public class ProductController {
     	//	,HttpServletRequest req)
 	public String add(Model model,@ModelAttribute Product product,HttpServletRequest req)
     {
+    	if(product.getName()==""||product.getQuantity()<=0|| product.getBrand()==""||product.getPrice()==0||product.getCategory()=="" ||product.getStore()=="")
+        {
+            model.addAttribute("err","please enter another information");
+            add(model);
+			System.out.println("1");
+            return "addProduct";
+        }
     	req.getSession().getAttribute("admin");
     	if(productRepository.findOne(product.getName() )==null)
     	{
     		if(brandRepository.findOne(product.getBrand())==null || storeRepository.findOne(product.getStore())==null)//there is no brand like this
-				System.out.println("there is no brand like this or there is no store like this");
+			{
+				model.addAttribute("err", "there is no brand like this or there is no store like this");
+				add(model);
+				System.out.println("2");
+				return "addProduct";
+			}
     		else {
 				product.setNumOfViews(0);
 				//Product pro=new Product(name,price,brand,cat,quantity);
+				System.out.println("3");
 				productRepository.save(product);
 			}
     	}
     	else
     	{
-    		System.out.println("already exists!");
+    		//System.out.println("already exists!");
+            model.addAttribute("err","already exists!");
+            add(model);
     		return "addProduct";
     	}
     	return "addProductInDB";
@@ -95,36 +111,47 @@ public class ProductController {
 
 	@GetMapping("buyProduct")
 	public String buy(Model model,@RequestParam("name") String name,@RequestParam("store") String store,
-					  @RequestParam("amount") int amount,@RequestParam("email") String email)
+					  @RequestParam("amount") String amount1,@RequestParam("email") String email)
 	{
+	    int amount=Integer.parseInt(String.valueOf(amount1));
+	    if(name==""||store==""||amount<=0||email=="")
+        {
+            model.addAttribute("err","please enter the information again");
+            show(model);
+            return "show-all-products";
+        }
 		Product product=productRepository.findOne(name);
 		if(product!=null)
 		{
 			Store store1=storeRepository.findOne(store);
-			if(store!=null)
+			if(store1!=null)
 			{
+				User user=userRepository.findOne(email);
 				if(product.getQuantity()>=amount)
 				{
-
 					int quantity=product.getQuantity();
 					productRepository.delete(product.getName());
-					product.setQuantity(quantity--);
+					quantity-=amount;
+					product.setQuantity(quantity);
 					productRepository.save(product);
 
 					double total=product.getPrice()*amount;
-					if(userRepository.findOne(email).equals("storeOwner"))
+					if(userRepository.findOne(email).getUType().equals("storeOwner"))
                     {
                         total=total*85/100;
+						System.out.println("storeOwner");
                     }
                     if(amount>2)
                     {
                         total=total*90/100;
+						System.out.println(">2");
                     }
-                    if(product.isFirstTime())
+                    if(user.isFirstTime())
                     {
                         total=total*95/100;
-                        product.setFirstTime(false);
-                        productRepository.save(product);
+                        user.setFirstTime(false);
+                        userRepository.save(user);
+						System.out.println("isFirstTime");
                     }
 
 					String msg=Double.toString(total);
@@ -132,6 +159,7 @@ public class ProductController {
 				}
 				else {
 					System.out.println("you can't buy all this amount!!");
+					show(model);
 					model.addAttribute("err","you can't buy all this amount!!");
 					return "show-all-products";
 				}
@@ -139,12 +167,14 @@ public class ProductController {
 			}
 			else {
 				System.out.println("there is no store like that!!");
+				show(model);
 				model.addAttribute("err","there is no store like that!!");
 				return "show-all-products";
 			}
 		}
 		else {
 			System.out.println("there is no product like that!!");
+			show(model);
 			model.addAttribute("err","you can't product all this amount!!");
 			return "show-all-products";
 		}

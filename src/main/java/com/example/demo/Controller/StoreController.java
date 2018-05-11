@@ -39,8 +39,14 @@ public class StoreController {
 	}
 
 	@GetMapping("/addedStore")
-    public String addNewStore(@ModelAttribute Store store, HttpServletRequest req)
+    public String addNewStore(Model model,@ModelAttribute Store store, HttpServletRequest req)
     {
+    	if(store.getName()==""||store.getLocation()==""||store.getType()=="")
+		{
+			model.addAttribute("err","enter the information again");
+			addstore(model);
+			return "addStore";
+		}
     	req.getSession().getAttribute("storeOwner");
 
 		//we notify admin to add new store
@@ -56,7 +62,11 @@ public class StoreController {
     	if(storeRepository.findOne(store.getName())==null)
 			storeRepository.save(store);
     	else
-			System.out.println("already exists!!");
+		{
+			model.addAttribute("err","already exists!!");
+			addstore(model);
+			return "addStore";
+		}
 
     	return "addedStore";
     }

@@ -50,12 +50,13 @@
 			</form>-->
 			<form name="valid" th:action="@{/loggedin}"    th:object="${name}" method="post">
 
-				E-mail: <input type="text" th:field="*{email}" name="email"/>
+				E-mail: <input type="text" id="email" th:field="*{email}" name="email"/>
 				<br/>
-				Password: <input type="password" th:field="*{password}" name="password"/>
+				Password: <input type="password" id="password" th:field="*{password}" name="password"/>
 				<br/>
-				<input type="submit" value="login"/>
+				<input type="submit" id="login" value="login"/>
 			</form>
+
 
 		</div>
 

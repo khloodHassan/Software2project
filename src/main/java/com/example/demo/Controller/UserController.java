@@ -29,7 +29,7 @@ public class UserController {
 	}
 
 	@PostMapping("/loggedin")
-	public ModelAndView login (@RequestParam Map<String, String> body,HttpServletRequest request) {
+	public ModelAndView login (Model model,@RequestParam Map<String, String> body,HttpServletRequest request) {
 		//System.out.println("email="+body.);
 		System.out.println(body.get("email"));
 		User user = userRepository.findOne(body.get("email"));
@@ -45,7 +45,7 @@ public class UserController {
 				request.getSession().setAttribute("admin",user);
 				ModelAndView mv = new ModelAndView();
 				mv.setViewName("adminHome");
-				mv.addObject("name", user);
+				//mv.addObject("name", user);
 				//return "AdminHome";
 				return mv;
 			}
@@ -53,14 +53,15 @@ public class UserController {
 				request.getSession().setAttribute("storeOwner",user);
 				ModelAndView mv = new ModelAndView();
 				mv.setViewName("storeOwnerHome");
-				mv.addObject("name", user);
+				//mv.addObject("name", user);
 				//return "storeOwnerHome";
 				return mv;
 			}
 		} else {
+			loginPage(model);
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("login");
-			mv.addObject("err", "Your username or password is incorrect");
+			mv.setViewName("registered");
+			mv.addObject("err","invalid email or invalid password!!");
 			//return "login";
 			return mv;
 		}
@@ -109,6 +110,12 @@ public class UserController {
     @PostMapping("/registered")
     public String register(Model model ,@ModelAttribute User user){
 
+		if(user.getUserName()=="" || user.getUType().equals("") || user.getPassword()=="" || user.getEmail()=="" ||user.getConfirm()=="")
+		{
+			model.addAttribute("err","please enter you information again");
+			register1(model);
+			return "register";
+		}
 		if (userRepository.exists(user.getEmail()) == false)// don't have an account
 		{
 			if (user.getPassword().equals(user.getConfirm())) {
